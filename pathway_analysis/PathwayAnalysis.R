@@ -5,9 +5,9 @@ library(org.Rn.eg.db)
 ########################################################################################################################################################################
 #Cyclosporine Data Analysis
 #Load Cyclosporine Data
-Cyclosporine_data <- read.csv("Cyclosporine_RNA_Seq_Counts.csv", sep = ",", row.names = NULL, header = TRUE)
+Cyclosporine_data <- read.csv("data/Cyclosporine_RNA_Seq_Counts.csv", sep = ",", row.names = NULL, header = TRUE)
 Cyclosporine_data_2 <- Cyclosporine_data[,1:7]
-Cyclosporine_metadata <- read.csv(file = "Cyclosporine_RNA_Seq_Counts_MetaData.csv")
+Cyclosporine_metadata <- read.csv(file = "data/Cyclosporine_RNA_Seq_Counts_MetaData.csv")
 
 
 
@@ -18,8 +18,8 @@ results_dds_Cyclosporine <- results(dds_Cyclosporine)
 results_dds_Cyclosporine <- results_dds_Cyclosporine[order(results_dds_Cyclosporine$log2FoldChange),]
 
 #Convert from S4 to Df
-write.csv(results_dds_Cyclosporine, 'results_Cyclosporine.csv')
-dataframe_results_Cyclosporine <- read.csv('results_Cyclosporine.csv', sep = ",", row.names = NULL, header = TRUE)
+write.csv(results_dds_Cyclosporine, 'results/results_Cyclosporine.csv')
+dataframe_results_Cyclosporine <- read.csv('results/results_Cyclosporine.csv', sep = ",", row.names = NULL, header = TRUE)
 
 #filter based on log2FoldChange value
 threshold <- 0.1
@@ -50,9 +50,9 @@ dotplot(Cyclosporine_gse, showCategory=10, split=".sign") + facet_grid(.~.sign)
 ########################################################################################################################################################################
 #Acetaminophen Data Analysis
 #Load Acetaminophen Data
-Acetaminophen_data <- read.csv("Acetaminophen_RNA_Seq_Counts.csv", sep = ",", row.names = NULL, header = TRUE)
+Acetaminophen_data <- read.csv("data/Acetaminophen_RNA_Seq_Counts.csv", sep = ",", row.names = NULL, header = TRUE)
 Acetaminophen_data_2 <- Acetaminophen_data[,1:7]
-Acetaminophen_metadata <- read.csv(file = "Acetaminophen_RNA_Seq_Counts_MetaData.csv")
+Acetaminophen_metadata <- read.csv(file = "data/Acetaminophen_RNA_Seq_Counts_MetaData.csv")
 
 #DESeq on Acetaminophen
 dds_Acetaminophen <- DESeqDataSetFromMatrix(countData = Acetaminophen_data_2, colData = Acetaminophen_metadata, design =~Control.Treatment, tidy = TRUE)
@@ -61,8 +61,8 @@ results_dds_Acetaminophen <- results(dds_Acetaminophen)
 results_dds_Acetaminophen <- results_dds_Acetaminophen[order(results_dds_Acetaminophen$log2FoldChange),]
 
 #convert S4 to Df
-write.csv(results_dds_Acetaminophen, 'results_Acetaminophen.csv')
-dataframe_results_Acetaminophen <- read.csv('results_Acetaminophen.csv', sep = ",", row.names = NULL, header = TRUE)
+write.csv(results_dds_Acetaminophen, 'results/results_Acetaminophen.csv')
+dataframe_results_Acetaminophen <- read.csv('results/results_Acetaminophen.csv', sep = ",", row.names = NULL, header = TRUE)
 
 #filter based on log2FoldChange value 
 dataframe_results_Acetaminophen_least_log_fold_change <- dataframe_results_Acetaminophen[which(dataframe_results_Acetaminophen$log2FoldChange > (-1*threshold)),]
